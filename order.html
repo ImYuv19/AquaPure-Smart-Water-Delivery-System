@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>order</title>
+    <link rel="stylesheet" href="order.css">
+</head>
+<body>
+    <!-- HEADER / NAVBAR -->
+
+<header class="site-header">
+    <div class="nav-container">
+        <a href="index.html" class="logo"><span class="logo-icon">💧</span><span class="logo-text">AquaPure</span></a>
+        <nav class="primary-nav" id="primaryNav">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="order.html" class="nav-link nav-active">Order</a></li>
+                <li><a href="plans.html" class="nav-link">Plans</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li id="auth-nav-item"><a href="login.html" class="nav-link nav-cta">Login</a></li>
+            </ul>
+        </nav>
+        <button class="hamburger" id="hamburgerBtn"><span></span><span></span><span></span></button>
+    </div>
+</header>
+
+<!-- the end of navbar  -->
+ <!-- ORDER HERO -->
+
+<section class="order-hero">
+
+<div class="order-hero-content">
+
+<span class="section-label">Quick & Easy Ordering</span>
+
+<h1 class="order-hero-title">
+Order Fresh Water <span>In Minutes</span>
+</h1>
+
+<p class="order-hero-text">
+Choose your jar size, set your delivery schedule,
+and enjoy pure drinking water delivered straight
+to your doorstep.
+</p>
+
+</div>
+
+</section>
+<!-- hero end  -->
+
+<section class="order-section">
+
+<div class="order-layout">
+
+<div class="order-left">
+
+<h2 class="section-title">Choose Your Jar</h2>
+
+<div class="jar-grid">
+
+<!-- <div class="jar-card" data-size="5L" data-price="0">
+<span class="jar-size">5L</span>
+<span class="jar-price">Free</span>
+</div> -->
+
+<div class="jar-card" data-size="5L" data-price="30">
+
+<span class="jar-size">5L</span>
+
+<span class="jar-price">₹30</span>
+
+</div>
+
+<div class="jar-card" data-size="10L" data-price="50">
+<span class="jar-size">10L</span>
+<span class="jar-price">₹50</span>
+</div>
+
+<div class="jar-card" data-size="20L" data-price="90">
+<span class="jar-size">20L</span>
+<span class="jar-price">₹90</span>
+</div>
+
+</div>
+
+<!-- Quantity -->
+
+<div class="order-card">
+
+<h3>Quantity</h3>
+
+<div class="qty-control">
+
+<button id="qty-dec">−</button>
+<input type="number" id="quantity" value="1" min="1">
+<button id="qty-inc">+</button>
+
+</div>
+
+</div>
+
+<!-- Subscription -->
+
+<div class="order-card">
+    <h3>Subscription</h3>
+
+    <label class="radio">
+        <input type="radio" name="subscription" value="onetime" checked>
+        One Time
+    </label>
+
+    <label class="radio">
+        <input type="radio" name="subscription" value="weekly">
+        Weekly
+    </label>
+
+    <label class="radio">
+        <input type="radio" name="subscription" value="monthly">
+        Monthly (5% off)
+    </label>
+</div>
+
+<!-- Coupon -->
+
+<div class="order-card">
+
+<h3>Coupon Code</h3>
+
+<div class="coupon-box">
+
+<input type="text" id="coupon-input" placeholder="Try 'uvraj' for 20% off">
+
+<button id="apply-coupon">Apply</button>
+
+</div>
+
+<p id="coupon-msg"></p>
+
+</div>
+
+</div>
+
+<!-- CUSTOMER DETAILS -->
+
+<!-- <div class="order-card">
+
+<h3>Customer Details</h3>
+
+<label>Full Name</label>
+<input type="text" id="cust-name" placeholder="Enter your name">
+
+<label>Phone Number</label>
+<input type="tel" id="cust-phone" placeholder="Enter phone number">
+
+<label>Delivery Address</label>
+<textarea id="cust-address" rows="3" placeholder="Enter delivery address"></textarea>
+
+<label>Delivery Date</label>
+<input type="date" id="delivery-date">
+
+</div> -->
+
+<div class="order-card">
+    <h3>Delivery Details</h3>
+
+    <div id="guest-checkout-form">
+        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px;">
+            <a href="login.html" style="color: #0ea5e9; font-weight: 600; text-decoration: none;">Sign in</a> to use your saved addresses.
+        </p>
+
+        <label for="cust-name">Full Name</label>
+        <input type="text" id="cust-name" placeholder="Enter your name">
+
+        <label for="cust-phone">Phone Number</label>
+        <input type="tel" id="cust-phone" placeholder="Enter phone number">
+
+        <label for="cust-address">Delivery Address</label>
+        <textarea id="cust-address" rows="3" placeholder="Enter delivery address"></textarea>
+    </div>
+
+    <div id="logged-in-address-card" style="display: none; background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 15px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <strong style="color: #0f172a;" id="saved-name-display">Your Name</strong>
+            <button id="edit-address-btn" style="background: none; border: none; color: #0ea5e9; cursor: pointer; font-weight: 600; font-size: 14px;">Edit Address</button>
+        </div>
+        <p style="font-size: 14px; color: #475569; margin-bottom: 5px;" id="saved-address-display">Saved Address...</p>
+        <p style="font-size: 14px; color: #475569; margin-bottom: 0;">📞 <span id="saved-phone-display">Saved Phone</span></p>
+    </div>
+
+    <label for="delivery-date">Delivery Date</label>
+    <input type="date" id="delivery-date">
+
+    <label for="delivery-slot">Delivery Slot</label>
+    <select id="delivery-slot">
+        <option value="">Select a time slot</option>
+        <option value="Morning (8 AM - 12 PM)">Morning (8 AM - 12 PM)</option>
+        <option value="Afternoon (12 PM - 4 PM)">Afternoon (12 PM - 4 PM)</option>
+        <option value="Evening (4 PM - 8 PM)">Evening (4 PM - 8 PM)</option>
+    </select>
+</div>
+
+<!-- <div class="order-card">
+    <h3>Add-ons</h3>
+    <label class="checkbox" for="dispenser-rental" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+        <input type="checkbox" id="dispenser-rental" value="150">
+        <span>Add Dispenser Rental (₹150/month)</span>
+    </label>
+</div> -->
+
+<div class="order-card">
+    <h3>Add-ons</h3>
+    <label class="checkbox-wrapper" for="dispenser-rental">
+        <input type="checkbox" id="dispenser-rental" value="150">
+        <span class="checkbox-text">Add Dispenser Rental (₹150/month)</span>
+    </label>
+</div>
+
+<!-- SUMMARY -->
+
+<div class="order-summary">
+
+<h3>Order Summary</h3>
+
+<div class="summary-row">
+<span>Jar</span>
+<span id="sum-jar">Not Selected</span>
+</div>
+
+<div class="summary-row">
+<span>Quantity</span>
+<span id="sum-qty">1</span>
+</div>
+
+<div class="summary-row">
+<span>Price/Jar</span>
+<span id="sum-price">₹0</span>
+</div>
+
+<div class="summary-row">
+<span>Subtotal</span>
+<span id="sum-subtotal">₹0</span>
+</div>
+
+<div class="summary-row">
+<span>Discount</span>
+<span id="sum-discount">—</span>
+</div>
+
+<div class="summary-total">
+<span>Total</span>
+<span id="sum-total">₹0</span>
+</div>
+
+<button class="place-order">
+Place Order
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- DELIVERY TRACKING -->
+
+<section class="tracking-section">
+
+<h2 class="tracking-title">Track Your Delivery</h2>
+
+<div class="tracking-container">
+
+<div class="tracking-steps">
+
+<div class="tracking-step active" id="step1">
+<div class="step-icon">🧾</div>
+<p>Order Placed</p>
+</div>
+
+<div class="tracking-step" id="step2">
+<div class="step-icon">⚙️</div>
+<p>Processing</p>
+</div>
+
+<div class="tracking-step" id="step3">
+<div class="step-icon">🚚</div>
+<p>Out for Delivery</p>
+</div>
+
+<div class="tracking-step" id="step4">
+<div class="step-icon">📦</div>
+<p>Delivered</p>
+</div>
+
+</div>
+
+<!-- <div class="progress-bar">
+<div class="progress" id="progress-bar"></div>
+</div> -->
+
+<div class="progress-bar">
+
+<div class="progress" id="progress-bar"></div>
+
+<div class="truck" id="delivery-truck">🚚</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+<div class="footer-container">
+
+<!-- Brand -->
+<div class="footer-col">
+
+<h3 class="footer-logo">💧 AquaPure</h3>
+
+<p class="footer-desc">
+Fresh mineral-balanced water delivered to your doorstep
+with reliable service and flexible plans.
+</p>
+
+</div>
+
+
+<!-- Links -->
+<div class="footer-col">
+
+<h4 class="footer-title">Quick Links</h4>
+
+<ul class="footer-links">
+
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="order.html">Order</a></li>
+<li><a href="plans.html">Plans</a></li>
+<li><a href="contact.html">Contact</a></li>
+
+</ul>
+
+</div>
+
+
+<!-- Contact -->
+<div class="footer-col">
+
+<h4 class="footer-title">Contact</h4>
+
+<p>📧 hello@aquapure.com</p>
+<p>📞 +91 98765 43210</p>
+<p>📍 Mumbai, India</p>
+
+</div>
+
+</div>
+
+
+<!-- Bottom -->
+<div class="footer-bottom">
+
+<p>© 2026 AquaPure. All rights reserved.</p>
+
+<div class="footer-socials">
+
+<a href="#" class="social-btn">
+<svg viewBox="0 0 24 24">
+<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622z"/>
+</svg>
+</a>
+
+<a href="#" class="social-btn">
+<svg viewBox="0 0 24 24">
+<path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.269h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+</svg>
+</a>
+
+<a href="#" class="social-btn">
+<svg viewBox="0 0 24 24">
+<path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12c0 3.259.014 3.668.072 4.948.059 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.014 4.947-.072c1.277-.059 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947z"/>
+</svg>
+</a>
+
+<a href="#" class="social-btn">
+<svg viewBox="0 0 24 24">
+<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286z"/>
+</svg>
+</a>
+
+</div>
+
+</div>
+
+</footer>
+
+
+<script src="auth.js"></script>
+<script src="order.js"></script>
+</body>
+</html>

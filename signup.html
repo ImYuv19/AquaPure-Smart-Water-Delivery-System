@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - AquaPure</title>
+    <link rel="stylesheet" href="order.css"> <style>
+        .auth-section { padding: 120px 20px 80px; background: #f8fafc; min-height: 80vh; display: flex; justify-content: center; align-items: center; }
+        .auth-card { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); width: 100%; max-width: 500px; }
+        .auth-card h2 { color: #0f172a; margin-bottom: 20px; text-align: center; }
+        .auth-card p { text-align: center; color: #64748b; margin-bottom: 20px; }
+        .auth-card input, .auth-card textarea { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #cbd5e1; font-family: 'Poppins', sans-serif; font-size: 14px;}
+        .auth-card input:focus, .auth-card textarea:focus { outline: none; border-color: #0ea5e9; }
+        .auth-btn { width: 100%; padding: 12px; background: #0ea5e9; color: white; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: 0.3s; margin-top: 10px; font-size: 16px;}
+        .auth-btn:hover { background: #0284c7; }
+        .auth-link { text-align: center; margin-top: 20px; display: block; font-size: 14px; color: #64748b; text-decoration: none; }
+        .auth-link span { color: #0ea5e9; font-weight: 600; }
+        #signupError { color: #ef4444; font-size: 13px; text-align: center; margin-top: -5px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="nav-container">
+        <a href="index.html" class="logo"><span class="logo-icon">💧</span><span class="logo-text">AquaPure</span></a>
+        <nav class="primary-nav" id="primaryNav">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="order.html" class="nav-link">Order</a></li>
+                <li><a href="plans.html" class="nav-link">Plans</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li id="auth-nav-item"><a href="login.html" class="nav-link nav-cta">Login</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="auth-section">
+    <div class="auth-card">
+        <h2>Create an Account</h2>
+        <p>Join AquaPure for fast, easy ordering.</p>
+        
+        <form id="signupForm">
+            <input type="text" id="regName" placeholder="Full Name" required>
+            <input type="email" id="regEmail" placeholder="Email Address" required>
+            <input type="tel" id="regPhone" placeholder="Phone Number" required>
+            <input type="password" id="regPassword" placeholder="Create Password" required>
+            <textarea id="regAddress" rows="3" placeholder="Default Delivery Address" required></textarea>
+            
+            <p id="signupError"></p>
+            <button type="submit" class="auth-btn">Sign Up</button>
+        </form>
+        
+        <a href="login.html" class="auth-link">Already have an account? <span>Sign In here</span></a>
+    </div>
+</section>
+
+<script src="auth.js"></script>
+</body>
+</html>

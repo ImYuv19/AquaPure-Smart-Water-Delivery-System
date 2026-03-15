@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Profile - AquaPure</title>
+    <link rel="stylesheet" href="order.css">
+    <style>
+        .profile-page { padding: 120px 20px 60px; max-width: 1000px; margin: 0 auto; }
+        .dashboard-grid { display: grid; grid-template-columns: 350px 1fr; gap: 30px; }
+        .acc-card { background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); height: fit-content; }
+        .acc-info h2 { font-size: 22px; margin-bottom: 20px; color: #0f172a; display: flex; justify-content: space-between; align-items: center; }
+        
+        .info-field { margin-bottom: 15px; }
+        .info-field label { display: block; font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 600; margin-bottom: 4px; }
+        .info-value { font-weight: 500; font-size: 15px; color: #1e293b; }
+        .info-input { display: none; width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; font-size: 14px; }
+        
+        .edit-btn { background: #f1f5f9; color: #0ea5e9; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; }
+        .save-btn { display: none; width: 100%; background: #10b981; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; margin-top: 10px; font-weight: 600; }
+        
+        .history-card { background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .order-item { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #f1f5f9; }
+        .logout-link { color: #ef4444; font-weight: 600; cursor: pointer; font-size: 13px; margin-top: 20px; display: block; text-align: center; }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">💧</span>
+            <span class="logo-text">AquaPure</span>
+        </a>
+
+        <nav class="primary-nav" id="primaryNav">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="order.html" class="nav-link">Order</a></li>
+                <li><a href="plans.html" class="nav-link">Plans</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li id="auth-nav-item">
+                    <a href="login.html" class="nav-link nav-cta">Login</a>
+                </li>
+            </ul>
+        </nav>
+
+        <button class="hamburger" id="hamburgerBtn">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</header>
+
+<main class="profile-page">
+    <div class="dashboard-grid">
+        <div class="acc-card">
+            <h2>Personal Info <button class="edit-btn" id="toggle-edit">Edit</button></h2>
+            
+            <form id="edit-profile-form">
+                <div class="info-field">
+                    <label>Full Name</label>
+                    <div class="info-value" id="view-name">---</div>
+                    <input type="text" id="edit-name" class="info-input">
+                </div>
+                <div class="info-field">
+                    <label>Phone</label>
+                    <div class="info-value" id="view-phone">---</div>
+                    <input type="tel" id="edit-phone" class="info-input">
+                </div>
+                <div class="info-field">
+                    <label>Alternate Phone (Extra)</label>
+                    <div class="info-value" id="view-alt-phone">Not Added</div>
+                    <input type="tel" id="edit-alt-phone" class="info-input" placeholder="Emergency contact">
+                </div>
+                <div class="info-field">
+                    <label>Gender (Extra)</label>
+                    <div class="info-value" id="view-gender">Not Specified</div>
+                    <select id="edit-gender" class="info-input">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="info-field">
+                    <label>Address</label>
+                    <div class="info-value" id="view-address">---</div>
+                    <textarea id="edit-address" class="info-input" rows="3"></textarea>
+                </div>
+                
+                <button type="submit" class="save-btn" id="save-profile">Save Changes</button>
+            </form>
+            
+            <a onclick="logout()" class="logout-link">Log Out</a>
+        </div>
+
+        <div class="history-card">
+            <h3>Recent Orders</h3>
+            <div id="order-list"></div>
+        </div>
+    </div>
+</main>
+
+<script src="auth.js"></script>
+<script>
+    const activeEmail = localStorage.getItem('activeUser');
+    const userKey = 'user_' + activeEmail;
+    let isEditing = false;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!activeEmail) { window.location.href = "login.html"; return; }
+        loadProfileData();
+    });
+
+    function loadProfileData() {
+        const user = JSON.parse(localStorage.getItem(userKey));
+        
+        // Populate View Mode
+        document.getElementById('view-name').innerText = user.name;
+        document.getElementById('view-phone').innerText = user.phone;
+        document.getElementById('view-address').innerText = user.address;
+        document.getElementById('view-alt-phone').innerText = user.altPhone || "Not Added";
+        document.getElementById('view-gender').innerText = user.gender || "Not Specified";
+
+        // Populate Edit Inputs
+        document.getElementById('edit-name').value = user.name;
+        document.getElementById('edit-phone').value = user.phone;
+        document.getElementById('edit-address').value = user.address;
+        document.getElementById('edit-alt-phone').value = user.altPhone || "";
+        document.getElementById('edit-gender').value = user.gender || "Male";
+
+        // Orders
+        const list = document.getElementById('order-list');
+        const orders = user.orders || [];
+        list.innerHTML = orders.length ? "" : "<p>No orders yet.</p>";
+        orders.reverse().forEach(o => {
+            list.innerHTML += `<div class="order-item">
+                <div><strong>${o.qty} x ${o.jar}</strong><br><small>${o.date}</small></div>
+                <div style="text-align:right"><strong>${o.total}</strong><br><span style="color:#10b981;font-size:12px">Delivered</span></div>
+            </div>`;
+        });
+    }
+
+    document.getElementById('toggle-edit').addEventListener('click', () => {
+        isEditing = !isEditing;
+        const values = document.querySelectorAll('.info-value');
+        const inputs = document.querySelectorAll('.info-input');
+        const saveBtn = document.getElementById('save-profile');
+        
+        values.forEach(v => v.style.display = isEditing ? 'none' : 'block');
+        inputs.forEach(i => i.style.display = isEditing ? 'block' : 'none');
+        saveBtn.style.display = isEditing ? 'block' : 'none';
+        document.getElementById('toggle-edit').innerText = isEditing ? 'Cancel' : 'Edit';
+    });
+
+    document.getElementById('edit-profile-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const user = JSON.parse(localStorage.getItem(userKey));
+        
+        // Update user object with new values
+        user.name = document.getElementById('edit-name').value;
+        user.phone = document.getElementById('edit-phone').value;
+        user.address = document.getElementById('edit-address').value;
+        user.altPhone = document.getElementById('edit-alt-phone').value;
+        user.gender = document.getElementById('edit-gender').value;
+
+        localStorage.setItem(userKey, JSON.stringify(user));
+        alert("Profile updated successfully!");
+        location.reload();
+    });
+
+    function logout() {
+        if(confirm("Logout?")) { localStorage.removeItem('activeUser'); window.location.href = "index.html"; }
+    }
+</script>
+</body>
+</html>
